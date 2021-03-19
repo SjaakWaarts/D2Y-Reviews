@@ -1,0 +1,7 @@
+[client]
+	host = 52.59.239.214
+	port = 3306
+	database = coda
+	user = coda_user
+	password = coda_user
+	default-character-set = utf8
