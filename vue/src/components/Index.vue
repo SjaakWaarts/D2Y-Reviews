@@ -52,8 +52,9 @@ export default {
   methods: {
     vote: function (candidate) {
       if (confirm("Vote " + candidate.name)) {
+        let url = 'http://' + process.env.VUE_APP_HOST + ':' + process.env.VUE_APP_PORT + '/api/vote/'
         axios
-          .post(`http://localhost:8000/api/vote/`, {
+          .post(url, {
             candidate_name: candidate.name,
           })
           .then((response) => {
@@ -71,7 +72,8 @@ export default {
     },
     all: function () {
       console.log("Getting data");
-      axios.get("http://localhost:8000/api/candidate/", {
+      let url = 'http://' + process.env.VUE_APP_HOST + ':' + process.env.VUE_APP_PORT + '/api/candidate/'
+      axios.get(url, {
         auth: {
           username: "sjaak",
           password: "test"
