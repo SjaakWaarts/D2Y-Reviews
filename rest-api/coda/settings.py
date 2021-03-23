@@ -26,28 +26,56 @@ SECRET_KEY = 'ki_3*3iyjucl=saq2d%du#j=)rqtszs-%9pwe#cyr48$do!(po'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# for use when debug is set to true later on
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda request: False,
+    # Custom templates added to SKIP_TEMPLATE_PREFIXES, for when DEBUG_TOOLBAR is active, because this panel
+    # can grow very large and make it very slow: 'debug_toolbar.panels.templates.TemplatesPanel'
+    # Alternative is to disable the TemplatesPanel altogether by adding:
+    #     'DISABLE_PANELS': {
+    #         'debug_toolbar.panels.redirects.RedirectsPanel',  # Default
+    #         'debug_toolbar.panels.redirects.TemplatesPanel'  # Added
+    #     },
+    # More info: https://github.com/django-crispy-forms/django-crispy-forms/issues/703
+    'SKIP_TEMPLATE_PREFIXES': (
+        'django/forms/widgets/', 'admin/widgets/', 'widgets/',
+        'shared/field_wrapper.html', 'shared/tooltip.html', 'shared/image_wrapper.html'
+    ),
+}
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+DEBUG_TOOLBAR_CONFIG["SHOW_TOOLBAR_CALLBACK"] = lambda incoming_request: True
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
 
 ALLOWED_HOSTS = [
     'localhost','127.0.0.1', '52.59.239.214',
     'www.deheerlijkekeuken.nl', 'deheerlijkekeuken.nl', 'kookclub.deheerlijkekeuken.nl',
     ]
 
+INTERNAL_IPS = [
+    '127.0.0.1'
+]
 
 # Application definition
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
+    'dhk.apps.DhkConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'rest_framework',
     'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +84,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'coda.urls'
@@ -131,4 +159,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = Path(BASE_DIR).joinpath('static')
+
 STATIC_URL = '/static/'
+
+#STATICFILES_DIRS = [
+#    Path(STATIC_ROOT).joinpath('coda'),
+#]
+

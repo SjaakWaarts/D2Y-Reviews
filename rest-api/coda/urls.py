@@ -15,9 +15,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
+import debug_toolbar
+from django.conf import settings
 from django.urls import include, path
 
 urlpatterns = [
+    path('dhk/', include('dhk.urls', namespace='dhk')),
     path('api/', include('main.urls', namespace='api')),
     path('admin/', admin.site.urls),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
