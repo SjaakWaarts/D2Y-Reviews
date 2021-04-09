@@ -2,13 +2,13 @@
   <v-card class="mx-auto">
     <v-row>
       <v-col v-for="(item, i) in candidates" :key="i" cols="10" style="margin: 2%">
-        <v-card :color="white" light>
+        <v-card  light>
           <div class="d-flex flex-no-wrap justify-space-between">
             <div>
               <v-card-title class="headline" v-text="item.name"></v-card-title>
               <v-card-subtitle style="color:black">Votes: {{ item.votes }}</v-card-subtitle>
               <v-card-subtitle>
-                <v-expansion-panels v-model="panel" :disabled="disabled">
+                <v-expansion-panels v-model="panel">
                   <v-expansion-panel>
                     <v-expansion-panel-header>Details</v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       candidates: [],
+      panel: null,
     };
   },
   created() {
