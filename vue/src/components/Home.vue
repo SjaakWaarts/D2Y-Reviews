@@ -46,7 +46,7 @@
                 </v-card-text>
               </div>
             </v-expand-transition>
-          </v-card>          
+          </v-card>
         </v-col>
         <v-col>
           <v-card class="mx-auto" max-width="344">
@@ -74,7 +74,7 @@
                 </v-card-text>
               </div>
             </v-expand-transition>
-          </v-card>     
+          </v-card>
         </v-col>
         <v-col>
           <v-card class="mx-auto" max-width="344">
@@ -102,7 +102,7 @@
                 </v-card-text>
               </div>
             </v-expand-transition>
-          </v-card>          
+          </v-card>
         </v-col>
         <v-col>
           <v-card class="mx-auto" max-width="344">
@@ -131,7 +131,7 @@
                 </v-card-text>
               </div>
             </v-expand-transition>
-          </v-card>     
+          </v-card>
         </v-col>
       </v-row>
     </v-container>

@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -47,38 +48,39 @@ export default {
     };
   },
   created() {
-    console.log("Here");
+    console.log('Here');
     this.all();
   },
   methods: {
-    vote: function (candidate) {
-      if (confirm("Vote " + candidate.name)) {
-        let url = 'http://' + process.env.VUE_APP_HOST + ':' + process.env.VUE_APP_PORT + '/api/vote/'
+    vote(candidate) {
+      // eslint-disable-next-line no-restricted-globals
+      if (confirm('Vote $(candidate.name)')) {
+        const url = 'http://$(process.env.VUE_APP_HOST):$(process.env.VUE_APP_PORT)/api/vote/';
         axios
           .post(url, {
             candidate_name: candidate.name,
           })
           .then((response) => {
             console.log(response);
-            alert("Voted for" + candidate.name)
-            this.all()
+            alert('Voted for $(candidate.name)');
+            this.all();
           })
-          .catch(function (error) {
+          .catch((error) => {
             if (error.response) {
               console.log(error);
-              alert("You are only allowed to vote once");
+              alert('You are only allowed to vote once');
             }
           });
       }
     },
-    all: function () {
-      console.log("Getting data");
-      let url = 'http://' + process.env.VUE_APP_HOST + ':' + process.env.VUE_APP_PORT + '/api/candidate/'
+    all() {
+      console.log('Getting data');
+      const url = 'http://$(process.env.VUE_APP_HOST):$(process.env.VUE_APP_PORT)/api/candidate/';
       axios.get(url, {
         auth: {
-          username: "sjaak",
-          password: "test"
-        }
+          username: 'sjaak',
+          password: 'test',
+        },
       }).then((response) => {
         this.candidates = response.data;
         console.log(response);

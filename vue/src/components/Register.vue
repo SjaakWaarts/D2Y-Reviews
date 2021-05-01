@@ -43,29 +43,30 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+
 export default {
   data() {
     return {
       ratings: [1, 2, 3, 4, 5],
       num: 1,
       candidate: {
-        name: "",
+        name: '',
         no_challenges_solved: 0,
         java_rating: 1,
         cplus_rating: 1,
         dsa_rating: 1,
         python_rating: 1,
       },
-      admin_id: "",
-      admin_password: "",
+      admin_id: '',
+      admin_password: '',
       submitted: false,
     };
   },
   methods: {
-    create: function () {
+    create() {
       axios
-        .post("http://127.0.0.1:8000/api/candidate/", this.candidate, {
+        .post('http://127.0.0.1:8000/api/candidate/', this.candidate, {
           auth: {
             username: this.admin_id,
             password: this.admin_password,
@@ -73,8 +74,8 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          alert("Registered Succesfuly");
-          this.$router.push("/");
+          alert('Registered Succesfuly');
+          this.$router.push('/');
         })
         .catch((error) => {
           console.log(error);

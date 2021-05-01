@@ -1,19 +1,19 @@
 // import axios from 'axios';
 
 const state = {
-      user : {
-          name : '',
-          authenticated : false,
-        }
+  user: {
+    name: '',
+    authenticated: false,
+  },
 };
 
 const getters = {
-    userAuthenticated: (state) => {
-      return state.user.authenticated;
-    },
-    userName: (state) => {
-      return state.user.name;
-    },
+  userAuthenticated: () => {
+    return state.user.authenticated;
+  },
+  userName: () => {
+    return state.user.name;
+  },
 };
 
 const actions = {
@@ -27,5 +27,5 @@ export default {
   state,
   mutations,
   actions,
-  getters
-}
+  getters,
+};

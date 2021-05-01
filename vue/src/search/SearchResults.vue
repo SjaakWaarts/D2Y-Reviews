@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name : "SearchResults",
+  name: 'SearchResults',
   components: { },
   data() {
     return {

@@ -6,14 +6,14 @@
       <v-btn depressed color="indigo" :to="{ name: 'home' }"><v-icon class="mr-2">fas fa-home</v-icon>Home</v-btn>
       <v-btn depressed color="indigo" :to="{ name: 'search' }"><v-icon class="mr-2">fas fa-utensils</v-icon>Ga opzoek</v-btn>
       <v-btn depressed color="indigo" :to="{ name: 'club' }"><v-icon class="mr-2">fas fa-users</v-icon>Kookclub</v-btn>
-      <v-btn depressed color="indigo" :to="{ name: 'workshops' }"><v-icon class="mr-2">fas fa-mitten</v-icon>Workshops</v-btn>            
+      <v-btn depressed color="indigo" :to="{ name: 'workshops' }"><v-icon class="mr-2">fas fa-mitten</v-icon>Workshops</v-btn>
       <v-spacer></v-spacer>
       <div v-if="userAuthenticated">
-        <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>{{ userName }}</v-btn> 
-        <v-btn depressed color="indigo"><v-icon class="mr-2">fas fa-sign-in-alt</v-icon>Log out</v-btn> 
+        <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>{{ userName }}</v-btn>
+        <v-btn depressed color="indigo"><v-icon class="mr-2">fas fa-sign-in-alt</v-icon>Log out</v-btn>
       </div>
       <div v-else>
-        <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>Registreer</v-btn> 
+        <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>Registreer</v-btn>
         <v-btn depressed color="indigo"><v-icon class="mr-2">fas fa-sign-in-alt</v-icon>Log in</v-btn>
       </div>
       <v-menu left bottom>
@@ -58,33 +58,32 @@
     <v-main>
       <router-view />
     </v-main>
-    
     <v-footer color="indigo" app>
       <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 
-  export default {
-    props: {
-      source: String,
+export default {
+  props: {
+    source: String,
+  },
+  data: () => ({
+  }),
+  methods: {
+    toggle() {
+      this.$store.dispatch('toggleNavigationShow');
     },
-    data: () => ({
-    }),
-    methods: {
-      toggle() {
-        this.$store.dispatch('toggleNavigationShow')
-      },
-    },
-    computed: {
-      ...mapGetters([
-        'navigationShow',
-        'navigationWidth',
-        'userAuthenticated',
-        'userName'
-      ])
-    },
-  }
+  },
+  computed: {
+    ...mapGetters([
+      'navigationShow',
+      'navigationWidth',
+      'userAuthenticated',
+      'userName',
+    ]),
+  },
+};
 </script>
