@@ -32,9 +32,11 @@ const actions = {
   },
 };
 
+// Mutations expect two arguments: state and payload
 const mutations = {
-  searchRecipes(context) {
-    state.facets = JSON.parse(context.facets_data);
+  searchRecipes(_state, data) {
+    // const context = JSON.parse(data);
+    state.facets = JSON.parse(data.facets_data);
     Object.values(state.facets).forEach((facet) => {
       facet.options = [];
       for (let ix = 0; ix < facet.values.length; ix++) {
@@ -44,7 +46,7 @@ const mutations = {
       }
     });
   },
-  toggleNavigationShow() {
+  toggleNavigationShow(_state) {
     state.navigation.show = !state.navigation.show;
     return state.navigation.show;
   },
