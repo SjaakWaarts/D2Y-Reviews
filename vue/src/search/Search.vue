@@ -26,7 +26,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['searchRecipes']),
+    ...mapActions({
+      searchRecipes: 'dhk/searchRecipes',
+    }),
   },
   created() {
     // window.location.href = "https://kookclub.deheerlijkekeuken.nl/dhk/search?workbook_name=dhk&storyboard_name=initial&dashboard_name=initial&s=-published_date"

@@ -16,11 +16,13 @@ module.exports = {
     'vue',
   ],
   rules: {
-    'no-unused-vars': ['warn'],
+    'arrow-body-style': ['off'],
     'linebreak-style': ['error', 'windows'],
     'max-len': ['error', { code: 256 }],
-    'no-plusplus': ['off'],
-    'arrow-body-style': ['off'],
+    'no-console': ['warn', { allow: ['log', 'warn', 'error'] }],
     'no-param-reassign': ['off'],
+    'no-plusplus': ['off'],
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_', args: 'none' }],
+    'object-shorthand': ['off'],
   },
 };

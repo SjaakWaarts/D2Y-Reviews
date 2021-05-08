@@ -37,10 +37,10 @@
         </v-toolbar>
       </v-card>
       <v-expansion-panels multiple>
-        <v-expansion-panel v-for="(facet, key) in facets" :key="key">
+        <v-expansion-panel v-for="(facet, key) in facetsO" :key="key">
           <v-expansion-panel-header>{{ facet.label }}</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <facet v-bind:facet="facet"/>
+            <facet v-bind:facet="facet" v-model="facet.selected" />
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -50,7 +50,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { mapMultiRowFields, createHelpers } from 'vuex-map-fields';
 import Facet from './Facet.vue';
+
+const { mapMultiRowFields: mapdhkMultiRowFields } = createHelpers({
+  getterType: 'dhk/getField',
+  mutationType: 'dhk/updateField',
+});
 
 export default {
   name: 'SearchPanel',
@@ -60,15 +66,24 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['searchRecipes']),
+    ...mapActions({
+      searchRecipes: 'dhk/searchRecipes',
+    }),
+    update_filter(facet, value) {
+      facet.selected = value;
+    },
     search_filter() {
       this.searchRecipes();
     },
   },
   computed: {
-    ...mapGetters([
-      'facets',
-    ]),
+    ...mapGetters({
+      facets: 'dhk/facets',
+    }),
+    ...mapdhkMultiRowFields({
+      facetsO: 'facetsO',
+      facetsP: 'facetsP',
+    }),
   },
 };
 </script>

@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
   user: {
@@ -8,11 +8,12 @@ const state = {
 };
 
 const getters = {
-  userAuthenticated: () => {
-    return state.user.authenticated;
+  getField,
+  userAuthenticated: (localState) => {
+    return localState.user.authenticated;
   },
-  userName: () => {
-    return state.user.name;
+  userName: (localState) => {
+    return localState.user.name;
   },
 };
 
@@ -20,12 +21,14 @@ const actions = {
 };
 
 const mutations = {
+  updateField,
 };
 
 export default {
   // shortcut for state : state,
+  namespaced: true,
   state,
-  mutations,
-  actions,
   getters,
+  actions,
+  mutations,
 };

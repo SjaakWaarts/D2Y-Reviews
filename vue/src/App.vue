@@ -30,7 +30,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer :permanent="navigationShow" :width="navigationWidth" app>
+    <v-navigation-drawer :permanent="navigationshow" :width="navigationWidth" app>
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -65,6 +65,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 
 export default {
   props: {
@@ -74,16 +75,19 @@ export default {
   }),
   methods: {
     toggle() {
-      this.$store.dispatch('toggleNavigationShow');
+      this.$store.dispatch('dhk/toggleNavigationShow');
     },
   },
   computed: {
-    ...mapGetters([
-      'navigationShow',
-      'navigationWidth',
-      'userAuthenticated',
-      'userName',
-    ]),
+    ...mapGetters({
+      navigationShow: 'dhk/navigationShow',
+      navigationWidth: 'dhk/navigationWidth',
+      userAuthenticated: 'user/userAuthenticated',
+      userName: 'user/userName',
+    }),
+    ...mapFields({
+      navigationshow: 'show',
+    }),
   },
 };
 </script>
