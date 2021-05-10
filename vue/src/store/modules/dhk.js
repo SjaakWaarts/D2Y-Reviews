@@ -29,7 +29,7 @@ const actions = {
     };
     Object.values(state.facetsO).forEach((facet) => {
       if (facet.selected.length) {
-        searchCriteria[facet.label] = facet.selected;
+        searchCriteria[facet.field] = facet.selected;
       }
     });
     api.get('/search_workbook', { params: searchCriteria }).then((response) => {
