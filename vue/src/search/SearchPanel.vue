@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form>
-      <v-text-field outlined label="Search" append-icon="mdi-map-marker"></v-text-field>
+      <v-text-field v-model="q" outlined label="Search" append-icon="mdi-magnify"></v-text-field>
       <v-card color="grey lighten-4" flat height="80px">
         <v-toolbar>
           <v-tooltip bottom>
@@ -37,7 +37,7 @@
         </v-toolbar>
       </v-card>
       <v-expansion-panels multiple>
-        <v-expansion-panel v-for="(facet, key) in facetsO" :key="key">
+        <v-expansion-panel v-for="(facet, key) in facets" :key="key">
           <v-expansion-panel-header>{{ facet.label }}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <facet v-bind:facet="facet" v-model="facet.selected" />
@@ -50,8 +50,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { mapMultiRowFields, createHelpers } from 'vuex-map-fields';
+import { mapFields, mapMultiRowFields, createHelpers } from 'vuex-map-fields';
 import Facet from './Facet.vue';
+
+const { mapFields: mapdhkFields } = createHelpers({
+  getterType: 'dhk/getField',
+  mutationType: 'dhk/updateField',
+});
 
 const { mapMultiRowFields: mapdhkMultiRowFields } = createHelpers({
   getterType: 'dhk/getField',
@@ -78,11 +83,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      facets: 'dhk/facets',
+    }),
+    ...mapdhkFields({
+      q: 'q',
     }),
     ...mapdhkMultiRowFields({
-      facetsO: 'facetsO',
-      facetsP: 'facetsP',
+      facets: 'facets',
     }),
   },
 };

@@ -30,7 +30,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer :permanent="navigationshow" :width="navigationWidth" app>
+    <v-navigation-drawer v-model="navigationshow" :width="navigationWidth" app>
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>

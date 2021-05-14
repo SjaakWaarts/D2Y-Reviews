@@ -31,9 +31,8 @@ export default {
     }),
   },
   created() {
-    // window.location.href = "https://kookclub.deheerlijkekeuken.nl/dhk/search?workbook_name=dhk&storyboard_name=initial&dashboard_name=initial&s=-published_date"
-    // this.all();
-    this.searchRecipes();
+    // Content data table requested by dataTableUpdate
+    // this.searchRecipes();
   },
 };
 </script>
