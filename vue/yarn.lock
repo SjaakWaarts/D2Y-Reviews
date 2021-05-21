@@ -7907,6 +7907,13 @@ vendors@^1.0.0, vendors@^1.0.3:
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
 
+vue-columns-resizable-vuetify@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/vue-columns-resizable-vuetify/-/vue-columns-resizable-vuetify-1.0.3.tgz#96b2f09c417a71d28ad1ef5ae7990673a1fea590"
+  integrity sha512-LphbZP652tYHG/CHYWtX46qel1F++GX0LrZsWbclls7v2bfOytawnbXaspdAXLo/qpktfdUiRas/yLHv+mv4pg==
+  dependencies:
+    vue "^2.6.11"
+
 vue-eslint-parser@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.6.0.tgz#01ea1a2932f581ff244336565d712801f8f72561"

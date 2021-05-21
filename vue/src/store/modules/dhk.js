@@ -3,21 +3,18 @@ import api from '@/services/api';
 import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
-  show: false,
-  navigation: {
-    show: false,
-    width: 300,
-  },
   columns: {},
   facets: {},
   dataTable: {
+    anchors: ['image'],
     headers: [],
     items: [],
     loading: false,
     options: {
-      page: 1, itemsPerPage: 20, sortBy: [], sortDesc: [],
+      page: 1, itemsPerPage: 30, sortBy: [], sortDesc: [],
     },
     footer: { pagination: { page: 1, results_count: 0 } },
+    refreshCount: 0,
   },
   q: '',
   recipes: [],
@@ -27,10 +24,8 @@ const getters = {
   getField,
   columns: () => state.columns,
   facets: () => state.facets,
-  loading: () => state.loading,
+  loading: () => state.dataTable.loading,
   dataTable: () => state.dataTable,
-  navigationShow: (localState) => localState.navigation.show,
-  navigationWidth: (localState) => localState.navigation.width,
 };
 
 const actions = {
@@ -52,13 +47,10 @@ const actions = {
       const direction = state.dataTable.options.sortDesc[ix] ? '-' : '';
       searchCriteria.s = direction + state.dataTable.options.sortBy[ix];
     }
-    state.loading = true;
+    state.dataTable.loading = true;
     api.get('/search_workbook', { params: searchCriteria }).then((response) => {
       commit('searchRecipes', response.data);
     });
-  },
-  toggleNavigationShow({ commit, rootState }) {
-    commit('toggleNavigationShow');
   },
 };
 
@@ -72,6 +64,7 @@ const mutations = {
     localState.dataTable.headers = dataTable.headers;
     localState.dataTable.items = dataTable.items;
     localState.dataTable.footer = dataTable.footer;
+    localState.dataTable.footer.showFirstLastPage = true;
     Object.entries(localState.facets).forEach(([facetName, facet]) => {
       facet.options = [];
       for (let ix = 0; ix < facet.values.length; ix++) {
@@ -80,11 +73,8 @@ const mutations = {
         facet.options.push(node);
       }
     });
-    localState.loading = false;
-  },
-  toggleNavigationShow(localState) {
-    localState.navigation.show = !localState.navigation.show;
-    return localState.navigation.show;
+    localState.dataTable.loading = false;
+    localState.dataTable.refreshCount += 1;
   },
 };
 

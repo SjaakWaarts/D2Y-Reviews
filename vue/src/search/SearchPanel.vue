@@ -50,7 +50,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { mapFields, mapMultiRowFields, createHelpers } from 'vuex-map-fields';
+import { createHelpers } from 'vuex-map-fields';
 import Facet from './Facet.vue';
 
 const { mapFields: mapdhkFields } = createHelpers({
@@ -74,9 +74,6 @@ export default {
     ...mapActions({
       searchRecipes: 'dhk/searchRecipes',
     }),
-    update_filter(facet, value) {
-      facet.selected = value;
-    },
     search_filter() {
       this.searchRecipes();
     },

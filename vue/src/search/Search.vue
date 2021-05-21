@@ -32,7 +32,7 @@ export default {
   },
   created() {
     // Content data table requested by dataTableUpdate
-    // this.searchRecipes();
+    this.searchRecipes();
   },
 };
 </script>

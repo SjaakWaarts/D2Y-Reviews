@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="indigo" dense dark>
+    <v-app-bar app color="indigo" dense dark clipped-left>
       <v-app-bar-nav-icon @click="toggle"></v-app-bar-nav-icon>
       <v-toolbar-title class="mr-2">de (H)eerlijke Keuken</v-toolbar-title>
       <v-btn depressed color="indigo" :to="{ name: 'home' }"><v-icon class="mr-2">fas fa-home</v-icon>Home</v-btn>
@@ -8,14 +8,8 @@
       <v-btn depressed color="indigo" :to="{ name: 'club' }"><v-icon class="mr-2">fas fa-users</v-icon>Kookclub</v-btn>
       <v-btn depressed color="indigo" :to="{ name: 'workshops' }"><v-icon class="mr-2">fas fa-mitten</v-icon>Workshops</v-btn>
       <v-spacer></v-spacer>
-      <div v-if="userAuthenticated">
-        <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>{{ userName }}</v-btn>
-        <v-btn depressed color="indigo"><v-icon class="mr-2">fas fa-sign-in-alt</v-icon>Log out</v-btn>
-      </div>
-      <div v-else>
-        <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>Registreer</v-btn>
-        <v-btn depressed color="indigo"><v-icon class="mr-2">fas fa-sign-in-alt</v-icon>Log in</v-btn>
-      </div>
+      <v-btn depressed color="indigo"><v-icon class="mr-2">far fa-id-card</v-icon>{{ userAuthenticated ? userName : 'Registreer'}}</v-btn>
+      <v-btn depressed color="indigo"><v-icon class="mr-2">fas fa-sign-in-alt</v-icon>{{ userAuthenticated ? 'Log out' : 'Log in'}}</v-btn>
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
@@ -30,7 +24,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="navigationshow" :width="navigationWidth" app>
+    <v-navigation-drawer v-model="drawer" clipped absolute left temporary>
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
@@ -65,28 +59,23 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { mapFields } from 'vuex-map-fields';
 
 export default {
   props: {
     source: String,
   },
   data: () => ({
+    drawer: false,
   }),
   methods: {
     toggle() {
-      this.$store.dispatch('dhk/toggleNavigationShow');
+      this.drawer = !this.drawer;
     },
   },
   computed: {
     ...mapGetters({
-      navigationShow: 'dhk/navigationShow',
-      navigationWidth: 'dhk/navigationWidth',
       userAuthenticated: 'user/userAuthenticated',
       userName: 'user/userName',
-    }),
-    ...mapFields({
-      navigationshow: 'show',
     }),
   },
 };
