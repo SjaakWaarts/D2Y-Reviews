@@ -36,3 +36,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.splitpanes__pane {
+  padding: 10px;
+}
+
+</style>
