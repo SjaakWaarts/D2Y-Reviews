@@ -32,6 +32,7 @@ const state = {
     tileValues: [],
   },
   tab: null,
+  tiles_d: null,
 };
 
 const getters = {
@@ -89,6 +90,7 @@ const mutations = {
     localState.dataTable.footer.showFirstLastPage = true;
     localState.storyboard = JSON.parse(data.storyboard);
     localState.charts = JSON.parse(data.dashboard);
+    localState.tiles_d = JSON.parse(data.tiles_d);
     // UI Enhancements
     Object.entries(localState.facets).forEach(([facetName, facet]) => {
       facet.options = [];
