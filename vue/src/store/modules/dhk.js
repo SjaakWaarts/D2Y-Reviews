@@ -4,9 +4,9 @@ import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
   columns: {},
+  charts: [],
   facets: {},
   dataTable: {
-    anchors: ['image'],
     headers: [],
     items: [],
     loading: false,
@@ -16,24 +16,46 @@ const state = {
     footer: { pagination: { page: 1, results_count: 0 } },
     refreshCount: 0,
   },
+  params: {
+    workbookName: 'dhk',
+    storybookName: 'initial',
+    dashboardName: 'initial',
+  },
   q: '',
   recipes: [],
+  storyboard: [],
+  storyboardUI: {
+    dashboardSelected: { index: 0 },
+    dashboardOptions: [],
+    benchmarks: [],
+    tileFacets: [],
+    tileValues: [],
+  },
+  tab: null,
 };
 
 const getters = {
   getField,
   columns: () => state.columns,
+  dataTable: () => state.dataTable,
   facets: () => state.facets,
   loading: () => state.dataTable.loading,
-  dataTable: () => state.dataTable,
+  storyboard: () => state.storyboard,
+  storyboardUI: () => state.storyboardUI,
 };
 
 const actions = {
   searchRecipes({ commit, rootState }) {
     console.log('Getting data');
     const searchCriteria = {
-      workbook_name: 'dhk', storyboard_name: 'initial', dashboard_name: 'initial', s: '-published_date',
+      workbook_name: state.params.workbookName,
+      storyboard_name: state.params.storyboardName,
+      dashboard_name: state.params.dashboardName,
+      s: '-published_date',
     };
+    if (state.tab) {
+      searchCriteria.tab = state.tab;
+    }
     searchCriteria.p = state.dataTable.options.page;
     if (state.q.length > 0) {
       searchCriteria.q = state.q;
@@ -65,6 +87,9 @@ const mutations = {
     localState.dataTable.items = dataTable.items;
     localState.dataTable.footer = dataTable.footer;
     localState.dataTable.footer.showFirstLastPage = true;
+    localState.storyboard = JSON.parse(data.storyboard);
+    localState.charts = JSON.parse(data.dashboard);
+    // UI Enhancements
     Object.entries(localState.facets).forEach(([facetName, facet]) => {
       facet.options = [];
       for (let ix = 0; ix < facet.values.length; ix++) {
@@ -73,6 +98,14 @@ const mutations = {
         facet.options.push(node);
       }
     });
+    localState.storyboardUI.dashboardOptions = [];
+    for (let stix = 0; stix < localState.storyboard.length; stix++) {
+      const option = { name: localState.storyboard[stix].name, index: stix };
+      if (localState.storyboard[stix].name === localState.params.dashboardName) {
+        localState.storyboardUI.dashboardSelected.index = stix;
+      }
+      localState.storyboardUI.dashboardOptions.push(option);
+    }
     localState.dataTable.loading = false;
     localState.dataTable.refreshCount += 1;
   },
