@@ -18,7 +18,7 @@ const state = {
   },
   params: {
     workbookName: 'dhk',
-    storybookName: 'initial',
+    storyboardName: 'initial',
     dashboardName: 'initial',
   },
   q: '',
