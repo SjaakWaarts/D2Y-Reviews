@@ -46,13 +46,12 @@ const getters = {
 };
 
 const actions = {
-  searchRecipes({ commit, rootState }) {
+  searchRecipes({ commit, rootState }, params) {
     console.log('Getting data');
     const searchCriteria = {
       workbook_name: state.params.workbookName,
       storyboard_name: state.params.storyboardName,
       dashboard_name: state.params.dashboardName,
-      s: '-published_date',
     };
     if (state.tab) {
       searchCriteria.tab = state.tab;
@@ -69,6 +68,11 @@ const actions = {
     for (let ix = 0; ix < state.dataTable.options.sortBy.length; ix++) {
       const direction = state.dataTable.options.sortDesc[ix] ? '-' : '';
       searchCriteria.s = direction + state.dataTable.options.sortBy[ix];
+    }
+    if (params) {
+      Object.keys(params).forEach((key) => {
+        searchCriteria[key] = params[key];
+      });
     }
     state.dataTable.loading = true;
     api.get('/search_workbook', { params: searchCriteria }).then((response) => {

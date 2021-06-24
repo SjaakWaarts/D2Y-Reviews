@@ -1,3 +1,10 @@
+<style scoped>
+  .v-data-table.v-data-table.v-data-table >>> td {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+</style>
+
 <template>
   <div>
     <v-data-table :headers="dataTable.headers" :items="dataTable.items" :footer-props="dataTable.footer"

@@ -1,6 +1,6 @@
 <template>
   <splitpanes class="default-theme" vertical>
-    <pane size="20" min-size="10" max-size="50">
+    <pane size="25" min-size="10" max-size="50">
       <span><search-panel /></span>
     </pane>
     <pane min-size="50" max-size="90">
@@ -52,7 +52,8 @@ export default {
   },
   created() {
     // Content data table requested by dataTableUpdate
-    this.searchRecipes();
+    const { params } = this.$route;
+    this.searchRecipes(params);
   },
 };
 </script>

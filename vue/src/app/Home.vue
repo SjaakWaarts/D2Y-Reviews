@@ -29,7 +29,7 @@
               Ga <b>opzoek</b>!
             </v-card-subtitle>
             <v-card-actions>
-              <v-btn color="orange lighten-2" text :to="{ name: 'search' }">
+              <v-btn color="orange lighten-2" text :to="{ name: 'search', params: {s : '-published_date'} }">
                 Ga <b>opzoek</b> Recept<span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
               </v-btn>
               <v-spacer></v-spacer>

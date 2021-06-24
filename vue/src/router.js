@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('./components/Home.vue'),
+      component: () => import('./app/Home.vue'),
     },
     {
       path: '/search',
@@ -18,27 +18,27 @@ export default new Router({
     {
       path: '/club',
       name: 'club',
-      component: () => import('./components/Home.vue'),
+      component: () => import('./app/Home.vue'),
     },
     {
       path: '/workshops',
       name: 'workshops',
-      component: () => import('./components/Home.vue'),
+      component: () => import('./app/Home.vue'),
     },
     {
       path: '/dhk_admin',
       name: 'dhk_admin',
-      component: () => import('./components/Home.vue'),
+      component: () => import('./app/Home.vue'),
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('./components/Register.vue'),
+      component: () => import('./app/Register.vue'),
     },
     {
       path: '/favorites',
       name: 'favorites',
-      component: () => import('./components/Favorites.vue'),
+      component: () => import('./app/Favorites.vue'),
     },
   ],
 });

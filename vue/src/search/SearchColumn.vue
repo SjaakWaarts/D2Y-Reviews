@@ -44,7 +44,7 @@ export default {
     }
     if (this.header.value === 'score') {
       return h('v-progress-linear', {
-        domProps: { value: 15 },
+        props: { value: this.item, height: 15 },
       });
     }
     if (this.header.urls) {
