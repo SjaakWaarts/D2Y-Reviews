@@ -40,7 +40,22 @@
         <v-expansion-panel >
           <v-expansion-panel-header>Filters</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <facet v-for="(facet, key) in facets" :key="key" v-bind:facet="facet" v-model="facet.selected" class="mb-2"/>
+            <facet v-for="(facet, key) in visibleFacets('TermsFacet')" :key="key"
+              v-bind:facet="facet" v-model="facet.selected" class="mb-2"/>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel >
+          <v-expansion-panel-header>Datum</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <facet v-for="(facet, key) in visibleFacets('RangeFacet')" :key="key"
+              v-bind:facet="facet" v-model="facet.selected" class="mb-2"/>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel >
+          <v-expansion-panel-header>Keywords</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <facet v-for="(facet, key) in visibleFacets('KeywordFacet')" :key="key"
+              v-bind:facet="facet" v-model="facet.selected" v-on:change="changeKeywordFacet($event, facet)" class="mb-2"/>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -75,20 +90,31 @@ export default {
     ...mapActions({
       searchRecipes: 'dhk/searchRecipes',
     }),
+    changeKeywordFacet(value, facet) {
+      facet.keywords_text = value;
+    },
     collapsPanels() {
       this.panelsExpanded = [];
     },
     expandPanels() {
-      this.panelsExpanded = [0];
+      this.panelsExpanded = [0, 1, 2];
     },
     resetFilters() {
       this.q = '';
       for (let ix = 0; ix < this.facets.length; ix++) {
         this.facets[ix].selected = [];
+        if ('keywords_text' in this.facets[ix]) {
+          this.facets[ix].keywords_text = '';
+        }
       }
     },
     searchFilters() {
       this.searchRecipes();
+    },
+    visibleFacets(facetType) {
+      return this.facets.filter((facet) => {
+        return facet.type === facetType && facet.visible_pos > 0;
+      });
     },
   },
   computed: {

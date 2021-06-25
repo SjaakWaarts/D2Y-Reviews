@@ -65,6 +65,11 @@ const actions = {
         searchCriteria[facet.field] = facet.selected;
       }
     });
+    Object.values(state.facets).filter((facet) => facet.type === 'KeywordFacet').forEach((facet) => {
+      if (facet.keywords_text.length) {
+        searchCriteria[facet.keywords_input] = facet.keywords_text;
+      }
+    });
     for (let ix = 0; ix < state.dataTable.options.sortBy.length; ix++) {
       const direction = state.dataTable.options.sortDesc[ix] ? '-' : '';
       searchCriteria.s = direction + state.dataTable.options.sortBy[ix];
@@ -98,11 +103,11 @@ const mutations = {
     // UI Enhancements
     Object.entries(localState.facets).forEach(([facetName, facet]) => {
       facet.options = [];
-      for (let ix = 0; ix < facet.values.length; ix++) {
-        const option = facet.values[ix];
-        const node = { id: option, label: option };
+      Object.entries(facet.buckets).forEach(([key, bucket]) => {
+        const label = `${key} (${bucket.doc_count})`;
+        const node = { id: key, label: label };
         facet.options.push(node);
-      }
+      });
     });
     localState.storyboardUI.dashboardOptions = [];
     for (let stix = 0; stix < localState.storyboard.length; stix++) {
